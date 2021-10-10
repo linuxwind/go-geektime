@@ -37,12 +37,6 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	}
 }
 
-func GetEnv(){
-	var OsVersion string
-	OsVersion = os.Getenv("USER")
-	fmt.Println(OsVersion)
-}
-
 func IndexServer(w http.ResponseWriter, r *http.Request){
 	if r.URL.Path != "/" {
 		ErrorHandler(w, r, http.StatusNotFound)
@@ -53,8 +47,7 @@ func IndexServer(w http.ResponseWriter, r *http.Request){
 
 
 	var OsVersion string
-	OsVersion = os.Getenv("USER")
-	fmt.Println(OsVersion)
+	OsVersion = os.Getenv("VERSION")
 	w.Header().Set("VERSION", OsVersion )
 
 	fmt.Fprint(w, "Welcome to Home Page!")
@@ -76,7 +69,6 @@ func HealthZServer(w http.ResponseWriter, r *http.Request){
 
 func main() {
 
-	GetEnv()
 	http.HandleFunc("/", IndexServer)
 	http.HandleFunc("/healthz", HealthZServer)
 
